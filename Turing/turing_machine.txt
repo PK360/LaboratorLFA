@@ -1,0 +1,17 @@
+# This Turing Machine emulator supports single line comments at the start of a line or after a line.
+# Special state declarations are S (start state), E (accept state) and R (reject state) and only one start state be declared at a time.
+
+# Rules can be defined as a 3-tuple, 4-tuple or 5-tuple:
+#   --> 3-tuples: (start, end, direction), where the input / output is defaulted to epsilon.
+#   --> 4-tuples: (start, inp, end, direction) / (start, end, outp, direction), where the input is equal to the output.
+#   --> 5-tuples: (start, inp, end, outp, direction), being the full variant of a rule.
+
+# Execution Result: Turns every second instance of the empty character into a 1
+[STATES]: q0 = S, q1
+[ALPHABET]: {1}    # the Turing Machine's empty input will be hardcoded as SPACE and added at runtime (cannot be included normally)
+[RULES]
+q0, ,q1,1,R
+q1, ,q0, ,R
+q1,q1,R
+q0,q0,R
+q0,q0,1,R

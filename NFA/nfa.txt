@@ -1,0 +1,14 @@
+# This NFA emulator supports single line comments at the start of a line or after a line.
+# The emulator uses epsilon closure for more accurate recursive searches.
+
+# Recognized Language: { w in {0, 1}* | w = ({0, 1}*)1{0, 1}{0, 1} } (all strings that have 1 at the 3rd position from the end)
+[STATES]: q0 = s, q1, q2, q3 = E
+[ALPHABET]: {0, 1}   # alphabet elements are defined in curly brackets
+[RULES]
+q0, 0, q0
+q0, 1, q0
+q0, 1, q1
+q1, 0, q2
+q1, 1, q2
+q2, 0, q3
+q2, 1, q3

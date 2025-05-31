@@ -1,0 +1,48 @@
+# This Turing Machine emulator supports single line comments at the start of a line or after a line.
+
+# For simplicity's sake, this emulator implements epsilon transitions of type epsilon -> epsilon or symbol -> epsilon in order to
+# account for state transitions that do not modify the tape, making defining these transitions easier and eliminating the need to
+# define the tape alphabet, since its only purpose in this emulator would be to verify the validity of rules (which is not necessary
+# with this implementation).
+
+# Execution Result: Copies the binary string found before a $ between the empty space of two @s, having other characters between $ and @
+#                   (e.g. '1010111011$hsahashsad@          @' should be a valid string, try it out when running the script!)
+[STATES]: q0 = S, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12 = E, q13 = R, q14 = R
+[ALPHABET]: {0, 1, $, @}
+[RULES]
+q0, ,q0,R
+
+# copying a 0 and entering the "go back to $" state
+q0,0,q1, ,R
+q1,q1,R
+q1,$,q2,eps,R
+q2,q2,R
+q2,@,q3,eps,R
+q3,q3,R
+q3,@,q13,eps,L
+q3, ,q4,0,L
+q4,q4,L
+q4,$,q9,eps,L
+
+# copying a 1 and entering the "go back to $" state
+q0,1,q5, ,R
+q5,q5,R
+q5,$,q6,eps,R
+q6,q6,R
+q6,@,q7,eps,R
+q7,q7,R
+q7,@,q14,eps,L
+q7, ,q8,1,L
+q8,q8,L
+q8,$,q9,eps,L
+
+# find next character after exiting the "go back" state
+q9,q9,L
+q9, ,q0,eps,R
+
+# final check when all the characters have been moved
+q0,$,q10,eps,R
+q10,q10,R
+q10,@,q11,eps,R
+q11,q11,R
+q11,@,q12,eps,L

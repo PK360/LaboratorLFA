@@ -1,0 +1,24 @@
+# This DFA emulator supports single line comments at the start of a line or after a line.
+# Defining start and end states is defined by adding '=S' (start) or '=E' (end) after a state.
+
+# Recognized Language: { w in {0, 1}* | w = ({0, 1}*)1{0, 1}{0, 1} } (all strings that have 1 at the 3rd position from the end)
+# (this is the equivalent DFA of the NFA defined in 'nfa.txt')
+[STATES]: q000 = S, q001, q010, q011, q100 = E, q101 = E, q110 = E, q111 = E
+[ALPHABET]: {0, 1}
+[RULES]
+q000, 0, q000
+q000, 1, q001
+q001, 0, q010
+q001, 1, q011
+q100, 0, q000
+q100, 1, q001
+q101, 0, q010
+q101, 1, q011
+q010, 0, q100
+q010, 1, q101
+q011, 0, q110
+q011, 1, q111
+q110, 0, q100
+q110, 1, q101
+q111, 0, q110
+q111, 1, q111

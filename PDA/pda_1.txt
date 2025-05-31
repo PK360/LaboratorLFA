@@ -1,0 +1,19 @@
+# This PDA emulator supports single line comments at the start of a line or after a line.
+# A PDA necessitates the existence of a stack alphabet, which keeps track of all possible symbols in the stack
+
+# Rules can be defined as a 3-tuple or 5-tuple:
+#   --> 3-tuples: (start, inp, end), where the stack rule is defaulted to epsilon -> epsilon.
+#   --> 5-tuples: (start, inp, end, stack_top, stack_replace), being the full variant of a rule.
+
+# Recognized Language: { w(w^r) | w in {0, 1}* } (all binary strings followed up by the inverse string)
+[STATES]: q0 = S, q1, q2, q3 = E
+[ALPHABET]: {0, 1}
+[STACK_ALPHABET]: {0, 1, $}
+[RULES]
+q0, eps, q1, eps, $
+q1, 0, q1, eps, 0
+q1, 1, q1, eps, 1
+q1, eps, q2
+q2, 0, q2, 0, eps
+q2, 1, q2, 1, eps
+q2, eps, q3, $, eps

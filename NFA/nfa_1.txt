@@ -1,0 +1,16 @@
+# This NFA emulator supports single line comments at the start of a line or after a line.
+# The emulator uses epsilon closure for more accurate recursive searches.
+
+# Recognized Language: { w in {0, 1}+ | w = ({0,1}*){11, 101}({0,1}*) }
+#                      (all strings that contain 11 or 101 at some point)
+[STATES]: q1 = s, q2, q3, q4 = E
+[ALPHABET]: {0, 1}
+[RULES]
+q1, 0, q1
+q1, 1, q1
+q1, 1, q2
+q2, 0, q3
+q2, eps, q3
+q3, 1, q4
+q4, 0, q4
+q4, 1, q4

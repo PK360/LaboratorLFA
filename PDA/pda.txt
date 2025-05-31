@@ -1,0 +1,13 @@
+# This PDA emulator supports single line comments at the start of a line or after a line.
+# A PDA necessitates the existence of a stack alphabet, which keeps track of all possible symbols in the stack
+
+# Recognized Language: { (0^n)(1^n) | n in N } (all strings of 0s followed by an equal number of 1s)
+[STATES]: q0 = S, q1, q2, q3 = E
+[ALPHABET]: {0, 1}
+[STACK_ALPHABET]: {0, $}    # stack alphabet elements are also defined in curly brackets
+[RULES]
+q0, eps, q1, eps, $
+q1, 0, q1, eps, 0
+q1, 1, q2, 0, eps
+q2, 1, q2, 0, eps
+q2, eps, q3, $, eps
